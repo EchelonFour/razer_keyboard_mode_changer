@@ -1,0 +1,34 @@
+on:
+  push:
+    branches:
+      - main
+name: release-please
+jobs:
+  release-please:
+    runs-on: windows-latest
+    steps:
+      - uses: GoogleCloudPlatform/release-please-action@v2
+        id: release
+        with:
+          release-type: rust
+          package-name: razer_driver_rs
+      - uses: actions/checkout@v2
+        if: ${{ steps.release.outputs.release_created }}
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+        if: ${{ steps.release.outputs.release_created }}
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+        if: ${{ steps.release.outputs.release_created }}
+      - name: Upload artifacts
+        uses: svenstaro/upload-release-action@v2
+        with:
+          tag: ${{ steps.release.outputs.tag_name }}
+          file: '**/target/release/*.exe'
+          file_glob: true
+          overwrite: true
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ steps.release.outputs.release_created }}
