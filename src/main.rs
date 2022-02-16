@@ -1,14 +1,24 @@
 mod scheduler;
 
-use clap::Parser;
+use anyhow::{Context, Result};
+use clap::{ArgGroup, Parser};
 use razer_driver_rs::{razer_device::DeviceMode, scan_for_devices, RazerResult};
+use scheduler::{schedule_self_if_not_scheduled, uninstall_from_schedule};
 
 #[derive(Parser)]
 #[clap(version, about, long_about = None)]
+#[clap(group(
+    ArgGroup::new("installation")
+        .required(false)
+        .args(&["install", "uninstall"]),
+))]
 struct Cli {
-    /// Installs this command to the task scheduler
-    #[clap(short, long)]
+    /// Installs this command to the task scheduler to run every wake from sleep
+    #[clap(long)]
     install: bool,
+    /// Uninstall this command from the system
+    #[clap(long)]
+    uninstall: bool,
 }
 
 fn set_keyboard_to_factory() -> RazerResult<()> {
@@ -25,17 +35,26 @@ fn set_keyboard_to_factory() -> RazerResult<()> {
     Ok(())
 }
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() -> Result<()> {
     let cli = Cli::parse();
 
     if cli.install {
-        let install_result = scheduler::schedule_self_if_not_scheduled();
+        let install_result = schedule_self_if_not_scheduled();
         match install_result {
             Ok(_) => println!("Installed successfully"),
             Err(_) => println!("Failed to install"),
         }
-        return install_result;
+        install_result.context("installing scheduled task")
+    } else if cli.uninstall {
+        let uninstall_result = uninstall_from_schedule();
+        match uninstall_result {
+            Ok(_) => println!("Uninstalled successfully"),
+            Err(_) => println!("Failed to uninstall"),
+        }
+        uninstall_result.context("uninstalling scheduled task")
+    } else {
+        set_keyboard_to_factory().context("sending device mode change")?;
+        println!("Device mode changed");
+        Ok(())
     }
-    set_keyboard_to_factory()?;
-    Ok(())
 }
