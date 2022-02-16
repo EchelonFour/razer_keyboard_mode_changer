@@ -1,5 +1,6 @@
 [package]
 name = "razer_keyboard_mode_changer"
+description = "Enable macro keys as F13-F17 on some razer keyboards"
 version = "0.1.0"
 edition = "2021"
 
