@@ -12,3 +12,6 @@ clap = { version = "3.0.14", features = ["derive"] }
 razer_driver_rs = "0.1.0"
 anyhow = "1.0"
 tempfile = "3.3.0"
+
+[profile.release]
+lto = true
