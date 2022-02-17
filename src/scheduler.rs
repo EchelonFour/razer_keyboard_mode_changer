@@ -35,7 +35,6 @@ pub fn schedule_self_if_not_scheduled() -> Result<()> {
     let task_xml_file_path_str = task_xml_file_path
         .to_str()
         .context("os path was not valid unicode")?;
-    println!("path: {}", task_xml_file_path_str);
     let task_deleted = delete_existing_task()?;
     if task_deleted {
         println!("Deleted existing task to reinstall new one")
