@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.2.1](https://www.github.com/EchelonFour/razer_keyboard_mode_changer/compare/v0.2.0...v0.2.1) (2022-02-17)
+
+
+### Bug Fixes
+
+* remove debug logging ([dbd4b40](https://www.github.com/EchelonFour/razer_keyboard_mode_changer/commit/dbd4b401b9c332d9bf2f3b31ce2340a03dc48040))
+
 ## [0.2.0](https://www.github.com/EchelonFour/razer_keyboard_mode_changer/compare/v0.1.0...v0.2.0) (2022-02-17)
 
 
