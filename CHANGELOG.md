@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://www.github.com/EchelonFour/razer_keyboard_mode_changer/compare/v0.1.0...v0.2.0) (2022-02-17)
+
+
+### Features
+
+* make mode change happen at boot and wake ([626b8cc](https://www.github.com/EchelonFour/razer_keyboard_mode_changer/commit/626b8cc6b3ccac28ecb98783f70b81fdf9e1ed6a))
+
 ## 0.1.0 (2022-02-16)
 
 
