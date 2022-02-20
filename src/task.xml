@@ -40,6 +40,7 @@
   <Actions Context="Author">
     <Exec>
       <Command>{exe_path}</Command>
+      <Arguments>--wait 2500</Arguments>
     </Exec>
   </Actions>
 </Task>
