@@ -4,6 +4,7 @@ use anyhow::{Context, Result};
 use clap::{ArgGroup, Parser};
 use razer_driver_rs::{razer_device::DeviceMode, scan_for_devices, RazerResult};
 use scheduler::{schedule_self_if_not_scheduled, uninstall_from_schedule};
+use std::{thread::sleep, time::Duration};
 
 #[derive(Parser)]
 #[clap(version, about, long_about = None)]
@@ -19,6 +20,9 @@ struct Cli {
     /// Uninstall this command from the system
     #[clap(long)]
     uninstall: bool,
+    /// Wait some milliseconds before doing anything (useful for scheduled task)
+    #[clap(short, long, value_name = "MS")]
+    wait: Option<u64>,
 }
 
 fn set_keyboard_to_factory() -> RazerResult<()> {
@@ -53,6 +57,9 @@ fn main() -> Result<()> {
         }
         uninstall_result.context("uninstalling scheduled task")
     } else {
+        if let Some(wait_ms) = cli.wait {
+            sleep(Duration::from_millis(wait_ms));
+        }
         set_keyboard_to_factory().context("sending device mode change")?;
         println!("Device mode changed");
         Ok(())
