@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.3.0](https://www.github.com/EchelonFour/razer_keyboard_mode_changer/compare/v0.2.1...v0.3.0) (2022-02-20)
+
+
+### Features
+
+* add ability to wait a little before doing action ([74bcd0e](https://www.github.com/EchelonFour/razer_keyboard_mode_changer/commit/74bcd0e0a9efce8a294c08f1fee2c2c203b62df0))
+* make scheduled task wait a little to ensure it starts after wake ([db2f086](https://www.github.com/EchelonFour/razer_keyboard_mode_changer/commit/db2f0860a7ede323f1c08356b89e981bc38f22e8))
+* try to hide console window in task scheduler ([3fbb7cf](https://www.github.com/EchelonFour/razer_keyboard_mode_changer/commit/3fbb7cf0b35cc70d239e094e95282151440b3d92))
+
+
+### Bug Fixes
+
+* add some sanity options to the scheduled task to recover if it crashes ([2dfc1f2](https://www.github.com/EchelonFour/razer_keyboard_mode_changer/commit/2dfc1f235b8cb5c4ac5143e6a81915023e8f0e2e))
+
 ### [0.2.1](https://www.github.com/EchelonFour/razer_keyboard_mode_changer/compare/v0.2.0...v0.2.1) (2022-02-17)
 
 
